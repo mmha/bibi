@@ -1,0 +1,8 @@
+.idea/
+.kdev4/
+
+build/
+
+pkg/
+src/
+*.pkg.tar.xz
