@@ -15,4 +15,7 @@ function(bibi_testcase testname expectation file)
 	endif()
 endfunction()
 
+bibi_testcase(chrono_success TRUE Chrono/Success.cpp)
 bibi_testcase(container_success TRUE Container/Success.cpp)
+bibi_testcase(random_success TRUE Random/Success.cpp)
+bibi_testcase(thread_success TRUE Thread/Success.cpp)

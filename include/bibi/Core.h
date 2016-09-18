@@ -74,4 +74,10 @@ template<typename T, typename U>
 concept bool Compare = Callable<T, bool, U, U>;
 
 
+template<typename T>
+concept bool Numeric =
+	isSame<typename std::decay_t<T>, T>() &&
+	Trivial<T> &&
+	!Abstract<T>;
+
 }

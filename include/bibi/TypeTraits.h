@@ -90,10 +90,30 @@ template<typename T, typename U> constexpr auto isSame() -> bool { return std::i
 constexpr auto isBaseOf(auto &&a, auto &&b) -> bool { return isBaseOf<decltype(a), decltype(b)>(); }
 constexpr auto isConvertible(auto &&a, auto &&b) -> bool { return isConvertible<decltype(a), decltype(b)>(); }
 constexpr auto isSame(auto &&a, auto &&b) -> bool { return isSame<decltype(a), decltype(b)>(); }
-
+template<typename T, typename U> concept bool BaseOf = std::is_base_of<T, U>::value;
+template<typename T, typename U> concept bool Convertible = std::is_convertible<T, U>::value;
+template<typename T, typename U> concept bool Same = std::is_same<T, U>::value;
 //template<typename T, typename U> constexpr auto swappableWith() -> bool { return std::is_swappable_with<T, U>::value; }
 //template<typename T, typename U> constexpr auto nothrowSwappableWith() -> bool { return std::is_nothrow_swappable_with<T, U>::value; }
 //constexpr auto swappableWith(auto &&a, auto &&b) -> bool { return swappableWith<decltype(a), decltype(b)>(); }
 //constexpr auto nothrowSwappableWith(auto &&a, auto &&b) -> bool { return nothrowSwappableWith<decltype(a), decltype(b)>(); }
+
+
+template<typename T, template<typename...> typename Base>
+struct is_specialization_of : public std::false_type {};
+template<template<typename...> typename Base, typename... Args>
+struct is_specialization_of<Base<Args...>, Base> : public std::true_type {};
+
+template<typename Var, typename T, template<Var...> typename Base>
+struct is_variable_specialization_of : public std::false_type {};
+template<typename Var, template<Var...> typename Base, Var... Args>
+struct is_variable_specialization_of<Var, Base<Args...>, Base> : public std::true_type {};
+
+template<typename T, template<typename...> typename Base> constexpr bool is_specialization_of_v = is_specialization_of<T, Base>::value;
+template<typename T, template<typename...> typename Base> constexpr auto isSpecializationOf() -> bool { return is_specialization_of_v<T, Base>; }
+constexpr auto isSpecializationOf(auto &&t, auto &&base) -> bool { return isSpecializationOf<decltype(t), decltype(base)>(); }
+
+template<typename Var, typename T, template<Var...> typename Base> constexpr bool is_variable_specialization_of_v = is_variable_specialization_of<Var, T, Base>::value;
+template<typename Var, typename T, template<Var...> typename Base> constexpr auto isVariableSpecializationOf() -> bool { return is_variable_specialization_of_v<Var, T, Base>; }
 
 }

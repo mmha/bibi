@@ -60,15 +60,14 @@ namespace bibi
 			{a.crend()} -> typename C::const_reverse_iterator;
 		};
 
-	template<typename C, typename Allocator>
+	template<typename C>
 	concept bool AllocatorAwareContainer = 
 		Container<C> &&
-		//Allocator<typename C::allocator_type> &&
 		isSame<typename C::allocator_type::value_type, typename C::value_type>() &&
-		DefaultConstructible<Allocator> &&
+		DefaultConstructible<typename C::allocator_type> &&
 		CopyConstructible<typename C::value_type> &&
 		requires(C a,
-		         Allocator m,
+		         typename C::allocator_type m,
 		         C t)
 		{
 			{a.get_allocator()} -> Allocator;

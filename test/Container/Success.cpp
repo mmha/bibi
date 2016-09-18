@@ -11,19 +11,19 @@
 #include <unordered_set>
 #include <vector>
 
-auto testContainer(bibi::Container)
+void testContainer(bibi::Container)
 {
 
 }
 
-auto testReversibleContainer(bibi::ReversibleContainer)
+void testReversibleContainer(bibi::ReversibleContainer)
 {
 
 }
 
-template<typename T, typename A = typename T::allocator_type>
-auto testAllocatorAwareContainer(T)
-	requires bibi::AllocatorAwareContainer<T, A>
+template<typename T>
+void testAllocatorAwareContainer(T)
+	requires bibi::AllocatorAwareContainer<T>
 {
 
 }
@@ -79,4 +79,6 @@ auto main() -> int
 	testAllocatorAwareContainer(unordered_multiset);
 	testAllocatorAwareContainer(unordered_set);
 	testAllocatorAwareContainer(vector);
+
+	return 0;
 }
