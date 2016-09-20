@@ -116,4 +116,11 @@ constexpr auto isSpecializationOf(auto &&t, auto &&base) -> bool { return isSpec
 template<typename Var, typename T, template<Var...> typename Base> constexpr bool is_variable_specialization_of_v = is_variable_specialization_of<Var, T, Base>::value;
 template<typename Var, typename T, template<Var...> typename Base> constexpr auto isVariableSpecializationOf() -> bool { return is_variable_specialization_of_v<Var, T, Base>; }
 
+
+template <typename T>
+constexpr std::add_const_t<T>& as_const(T& t) noexcept
+{
+    return t;
+}
+
 }

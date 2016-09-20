@@ -21,9 +21,17 @@ void testReversibleContainer(bibi::ReversibleContainer)
 
 }
 
-template<typename T>
-void testAllocatorAwareContainer(T)
-	requires bibi::AllocatorAwareContainer<T>
+void testAllocatorAwareContainer(bibi::AllocatorAwareContainer)
+{
+
+}
+
+void testAssociativeContainer(bibi::AllocatorAwareContainer)
+{
+
+}
+
+void testUnorderedAssociativeContainer(bibi::UnorderedAssociativeContainer)
 {
 
 }
@@ -79,6 +87,9 @@ auto main() -> int
 	testAllocatorAwareContainer(unordered_multiset);
 	testAllocatorAwareContainer(unordered_set);
 	testAllocatorAwareContainer(vector);
+
+	testAssociativeContainer(map);
+	testUnorderedAssociativeContainer(unordered_map);
 
 	return 0;
 }

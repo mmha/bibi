@@ -18,7 +18,7 @@ concept bool LessThanComparable =
 
 template<typename T, typename R, typename... Args>
 concept bool Callable = 
-	requires(T t, Args... args)
+	requires(T t, Args &&... args)
 	{
 		{t(args...)} -> R;
 	};
@@ -56,7 +56,7 @@ concept bool NullablePointer =
 
 template<typename T, typename Key>
 concept bool Hash =
-	FunctionObject<T> &&
+	FunctionObject<T, Key> &&
 	CopyConstructible<T> &&
 	Destructible<T> &&
 	requires(T h, Key k)
