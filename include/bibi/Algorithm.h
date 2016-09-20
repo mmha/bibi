@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Iterator.h"
+#include "Random.h"
 #include <algorithm>
 
 namespace bibi
@@ -202,146 +203,178 @@ auto transform(A first, A last, B first2, B last2, Out d_first, Callable<std::de
 {
 	return std::transform(first, last, first2, last2, d_first, binary_op);
 }
-#if 0
+
 auto generate(ForwardIterator first, ForwardIterator last, Callable<std::decay_t<decltype(*first)>> g)
 {
 	std::generate(first, last, g);
 }
 
-auto generate_n()
+auto generate_n(OutputIterator first, auto count, Callable<std::decay_t<decltype(*first)>> g)
 {
-	return std::generate_n(first, last, );
+	return std::generate_n(first, count, g);
 }
 
-auto remove()
+auto remove(ForwardIterator first, ForwardIterator last, const auto &value)
 {
-	return std::remove(first, last, );
+	return std::remove(first, last, value);
 }
 
-auto remove_if()
+auto remove_if(ForwardIterator first, ForwardIterator last, Predicate<decltype(*first)> p)
 {
-	return std::remove_if(first, last, );
+	return std::remove(first, last, p);
 }
 
-auto remove_copy()
+auto remove_copy(InputIterator first, InputIterator last, OutputIterator d_first, const auto &value)
 {
-	return std::remove_copy(first, last, );
+	return std::remove_copy(first, last, d_first, value);
 }
 
-auto remove_copy_if()
+auto remove_copy_if(InputIterator first, InputIterator last, OutputIterator d_first, Predicate<decltype(*first)> p)
 {
-	return std::remove_copy_if(first, last, );
+	return std::remove_copy_if(first, last, d_first, p);
 }
 
-auto replace()
+template<ForwardIterator A, typename T>
+auto replace(A first, A last, const T &value, const T &new_value)
 {
-	return std::replace(first, last, );
+	return std::replace(first, last, value, new_value);
 }
 
-auto replace_if()
+auto replace_if(ForwardIterator first, ForwardIterator last, Predicate<decltype(*first)> p, const auto &new_value)
 {
-	return std::replace_if(first, last, );
+	return std::replace_if(first, last, p, new_value);
 }
 
-auto replace_copy()
+template<InputIterator A, OutputIterator B, typename T>
+auto replace_copy(A first, A last, B d_first, const T &value)
 {
-	return std::replace_copy(first, last, );
+	return std::replace_copy(first, last, d_first, value);
 }
 
-auto replace_copy_if()
+auto replace_copy_if(InputIterator first, InputIterator last, OutputIterator d_first, Predicate<decltype(*first)> p, const auto &value)
 {
-	return std::replace_copy_if(first, last, );
+	return std::replace_copy_if(first, last, d_first, p, value);
 }
 
-auto swap()
+template<typename T>
+auto swap(T &a, T &b)
 {
-	return std::swap(first, last, );
+	std::swap(a, b);
 }
 
-auto swap_ranges()
+template<typename T, size_t N>
+auto swap(T (&a)[N], T (&b)[N])
 {
-	return std::swap_ranges(first, last, );
+	std::swap(a, b);
 }
 
-auto iter_swap()
+template<ForwardIterator A, ForwardIterator B>
+auto swap_ranges(A first, A last, B first2)
 {
-	return std::iter_swap(first, last, );
+	return std::swap_ranges(first, last, first2);
 }
 
-auto reverse()
+template<ForwardIterator A, ForwardIterator B>
+auto iter_swap(A a, B b)
 {
-	return std::reverse(first, last, );
+	std::iter_swap(a, b);
 }
 
-auto reverse_copy()
+auto reverse(BidirectionalIterator first, BidirectionalIterator last)
 {
-	return std::reverse_copy(first, last, );
+	std::reverse(first, last);
 }
 
-auto rotate()
+auto reverse_copy(BidirectionalIterator first, BidirectionalIterator last, OutputIterator d_first)
 {
-	return std::rotate(first, last, );
+	return std::reverse_copy(first, last, d_first);
 }
 
-auto rotate_copy()
+auto rotate(ForwardIterator first, ForwardIterator n_first, ForwardIterator last)
 {
-	return std::rotate_copy(first, last, );
+	return std::rotate(first, n_first, last);
 }
 
-auto shuffle()
+auto rotate_copy(ForwardIterator first, ForwardIterator n_first, ForwardIterator last, OutputIterator d_first)
 {
-	return std::shuffle(first, last, );
+	return std::rotate_copy(first, n_first, last, d_first);
 }
 
-auto unique()
+auto shuffle(RandomAccessIterator first, RandomAccessIterator last, UniformRandomBitGenerator &&g)
 {
-	return std::unique(first, last, );
+	return std::shuffle(first, last, std::forward<UniformRandomBitGenerator>(g));
 }
 
-auto unique_copy()
+auto unique(ForwardIterator first, ForwardIterator last)
 {
-	return std::unique_copy(first, last, );
+	return std::unique(first, last);
+}
+
+auto unique(ForwardIterator first, ForwardIterator last, Callable<bool, decltype(*first), decltype(*first)> p)
+{
+	return std::unique(first, last, p);
+}
+
+auto unique_copy(InputIterator first, InputIterator last, OutputIterator d_first)
+{
+	return std::unique_copy(first, last, d_first);
+}
+
+auto unique_copy(InputIterator first, InputIterator last, OutputIterator d_first, Callable<bool, decltype(*first), decltype(*first)> p)
+{
+	return std::unique_copy(first, last, d_first, p);
 }
 
 // Partitioning operations
 
-auto is_partitioned()
+auto is_partitioned(InputIterator first, InputIterator last, Predicate<decltype(*first)> p)
 {
-	return std::is_partitioned(first, last, );
+	return std::is_partitioned(first, last, p);
 }
 
-auto partition()
+auto partition(ForwardIterator first, ForwardIterator last, Predicate<decltype(*first)> p)
 {
-	return std::partition(first, last, );
+	return std::partition(first, last, p);
 }
 
-auto partition_copy()
+template<InputIterator A, OutputIterator B, OutputIterator C>
+auto partition_copy(A first, A last, B d_first, C d_first_false, Predicate<decltype(*first)> p)
 {
-	return std::partition_copy(first, last, );
+	return std::partition_copy(first, last, d_first, d_first_false, p);
 }
 
-auto stable_partition()
+auto stable_partition(BidirectionalIterator first, BidirectionalIterator last, Predicate<decltype(*first)> p)
 {
-	return std::stable_partition(first, last, );
+	return std::stable_partition(first, last, p);
 }
 
-auto partition_point()
+auto partition_point(ForwardIterator first, ForwardIterator last, Predicate<decltype(*first)> p)
 {
-	return std::partition_point(first, last, );
+	return std::partition_point(first, last, p);
 }
 
 // Sorting operations
 
-auto is_sorted()
+auto is_sorted(ForwardIterator first, ForwardIterator last)
 {
-	return std::is_sorted(first, last, );
+	return std::is_sorted(first, last);
 }
 
-auto is_sorted_until()
+auto is_sorted(ForwardIterator first, ForwardIterator last, Compare<decltype(*first)> comp)
 {
-	return std::is_sorted_until(first, last, );
+	return std::is_sorted(first, last, comp);
 }
-#endif
+
+auto is_sorted_until(ForwardIterator first, ForwardIterator last)
+{
+	return std::is_sorted_until(first, last);
+}
+
+auto is_sorted_until(ForwardIterator first, ForwardIterator last, Compare<decltype(*first)> comp)
+{
+	return std::is_sorted_until(first, last);
+}
+
 auto sort(RandomAccessIterator first, RandomAccessIterator last)
 {
 	std::sort(first, last);
