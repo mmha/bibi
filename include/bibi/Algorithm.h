@@ -384,169 +384,397 @@ auto sort(RandomAccessIterator first, RandomAccessIterator last, Compare<decltyp
 {
 	std::sort(first, last, comp);
 }
-#if 0
-auto partial_sort()
+
+auto partial_sort(RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last)
 {
-	return std::partial_sort(first, last, );
+	return std::partial_sort(first, middle, last);
 }
 
-auto partial_sort_copy()
+auto partial_sort(RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last, Compare<decltype(*first)> comp)
 {
-	return std::partial_sort_copy(first, last, );
+	return std::partial_sort(first, middle, last, comp);
 }
 
-auto stable_sort()
+auto partial_sort_copy(InputIterator first, InputIterator last, RandomAccessIterator d_first, RandomAccessIterator d_last)
 {
-	return std::stable_sort(first, last, );
+	return std::partial_sort_copy(first, last, d_first, d_last);
 }
 
-auto nth_element()
+auto partial_sort_copy(InputIterator first, InputIterator last, RandomAccessIterator d_first, RandomAccessIterator d_last, Compare<decltype(*first)> comp)
 {
-	return std::nth_element(first, last, );
+	return std::partial_sort_copy(first, last, d_first, d_last, comp);
+}
+
+auto stable_sort(RandomAccessIterator first, RandomAccessIterator last)
+{
+	return std::stable_sort(first, last);
+}
+
+auto stable_sort(RandomAccessIterator first, RandomAccessIterator last, Compare<decltype(*first)> comp)
+{
+	return std::stable_sort(first, last, comp);
+}
+
+auto nth_element(RandomAccessIterator first, RandomAccessIterator nth, RandomAccessIterator last)
+{
+	return std::nth_element(first, nth, last);
+}
+
+auto nth_element(RandomAccessIterator first, RandomAccessIterator nth, RandomAccessIterator last, Compare<decltype(*first)> comp)
+{
+	return std::nth_element(first, nth, last, comp);
 }
 
 // Binary search operations (on sorted ranges)
 
-auto lower_bound
+auto lower_bound(ForwardIterator first, ForwardIterator last, const auto &value)
 {
-	return std::lower_bound(first, last, );
+	return std::lower_bound(first, last, value);
 }
 
-auto upper_bound
+template<typename T>
+auto lower_bound(ForwardIterator first, ForwardIterator last, const T &value, Compare<T> comp)
 {
-	return std::upper_bound(first, last, );
+	return std::lower_bound(first, last, value, comp);
 }
 
-auto binary_search
+auto upper_bound(ForwardIterator first, ForwardIterator last, const auto &value)
 {
-	return std::binary_search(first, last, );
+	return std::upper_bound(first, last, value);
 }
 
-auto equal_range
+template<typename T>
+auto upper_bound(ForwardIterator first, ForwardIterator last, const T &value, Compare<T> comp)
 {
-	return std::equal_range(first, last, );
+	return std::upper_bound(first, last, value, comp);
+}
+
+auto binary_search(ForwardIterator first, ForwardIterator last, const auto &value)
+{
+	return std::binary_search(first, last, value);
+}
+
+template<typename T>
+auto binary_search(ForwardIterator first, ForwardIterator last, const T &value, Compare<T> comp)
+{
+	return std::binary_search(first, last, value, comp);
+}
+
+auto equal_range(ForwardIterator first, ForwardIterator last, const auto &value)
+{
+	return std::equal_range(first, last, value);
+}
+
+template<typename T>
+auto equal_range(ForwardIterator first, ForwardIterator last, const T &value, Compare<T> comp)
+{
+	return std::equal_range(first, last, value, comp);
 }
  
 // Set operations (on sorted ranges)
 
-auto merge()
+template<InputIterator A, InputIterator B> 
+auto merge(A first, A last, B first2, B last2, OutputIterator d_first)
 {
-	return std::merge(first, last, );
+	return std::merge(first, last, first2, last2, d_first);
 }
 
-auto inplace_merge()
+template<InputIterator A, InputIterator B> 
+auto merge(A first, A last, B first2, B last2, OutputIterator d_first, Callable<bool, decltype(*first), decltype(*first2)> comp)
 {
-	return std::inplace_merge(first, last, );
+	return std::merge(first, last, first2, last2, d_first);
 }
 
-auto includes()
+auto inplace_merge(BidirectionalIterator first, BidirectionalIterator middle, BidirectionalIterator last)
 {
-	return std::includes(first, last, );
+	return std::inplace_merge(first, middle, last);
 }
 
-auto set_difference()
+auto inplace_merge(BidirectionalIterator first, BidirectionalIterator middle, BidirectionalIterator last, Compare<decltype(*first)> comp)
 {
-	return std::set_difference(first, last, );
+	return std::inplace_merge(first, middle, last, comp);
 }
 
-auto set_intersection()
+template<InputIterator A, InputIterator B>
+auto includes(A first, A last, B first2, B last2)
 {
-	return std::set_intersection(first, last, );
+	return std::includes(first, last, first2, last2);
 }
 
-auto set_symmetric_difference()
+template<InputIterator A, InputIterator B>
+auto includes(A first, A last, B first2, B last2, Callable<bool, decltype(*first), decltype(*first2)> comp)
 {
-	return std::set_symmetric_difference(first, last, );
+	return std::includes(first, last, first2, last2, comp);
 }
 
-auto set_union()
+template<InputIterator A, InputIterator B>
+auto set_difference(A first, A last, B first2, B last2, OutputIterator d_first)
 {
-	return std::set_union(first, last, );
+	return std::set_difference(first, last, first2, last2, d_first);
+}
+
+template<InputIterator A, InputIterator B>
+auto set_difference(A first, A last, B first2, B last2, OutputIterator d_first, Callable<bool, decltype(*first), decltype(*first2)> comp)
+{
+	return std::set_difference(first, last, first2, last2, d_first, comp);
+}
+
+template<InputIterator A, InputIterator B>
+auto set_intersection(A first, A last, B first2, B last2, OutputIterator d_first)
+{
+	return std::set_intersection(first, last, first2, last2, d_first);
+}
+
+template<InputIterator A, InputIterator B>
+auto set_intersection(A first, A last, B first2, B last2, OutputIterator d_first, Callable<bool, decltype(*first), decltype(*first2)> comp)
+{
+	return std::set_intersection(first, last, first2, last2, d_first, comp);
+}
+
+template<InputIterator A, InputIterator B>
+auto set_symmetric_difference(A first, A last, B first2, B last2, OutputIterator d_first)
+{
+	return std::set_symmetric_difference(first, last, first2, last2, d_first);
+}
+
+template<InputIterator A, InputIterator B>
+auto set_symmetric_difference(A first, A last, B first2, B last2, OutputIterator d_first, Callable<bool, decltype(*first), decltype(*first2)> comp)
+{
+	return std::set_symmetric_difference(first, last, first2, last2, d_first, comp);
+}
+
+template<InputIterator A, InputIterator B>
+auto set_union(A first, A last, B first2, B last2, OutputIterator d_first)
+{
+	return std::set_union(first, last, first2, last2, d_first);
+}
+
+template<InputIterator A, InputIterator B>
+auto set_union(A first, A last, B first2, B last2, OutputIterator d_first, Callable<bool, decltype(*first), decltype(*first2)> comp)
+{
+	return std::set_union(first, last, first2, last2, d_first, comp);
 }
 
 // Heap operations
 
-auto is_heap()
+auto is_heap(RandomAccessIterator first, RandomAccessIterator last)
 {
-	return std::is_heap(first, last, );
+	return std::is_heap(first, last);
 }
 
-auto is_heap_until()
+auto is_heap(RandomAccessIterator first, RandomAccessIterator last, Compare<decltype(*first)> comp)
 {
-	return std::is_heap_until(first, last, );
+	return std::is_heap(first, last, comp);
 }
 
-auto make_heap()
+auto is_heap_until(RandomAccessIterator first, RandomAccessIterator last)
 {
-	return std::make_heap(first, last, );
+	return std::is_heap_until(first, last);
 }
 
-auto push_heap()
+auto is_heap_until(RandomAccessIterator first, RandomAccessIterator last, Compare<decltype(*first)> comp)
 {
-	return std::push_heap(first, last, );
+	return std::is_heap_until(first, last, comp);
 }
 
-auto pop_heap()
+auto make_heap(RandomAccessIterator first, RandomAccessIterator last)
 {
-	return std::pop_heap(first, last, );
+	std::make_heap(first, last);
 }
 
-auto sort_heap()
+auto make_heap(RandomAccessIterator first, RandomAccessIterator last, Compare<decltype(*first)> comp)
 {
-	return std::sort_heap(first, last, );
+	std::make_heap(first, last, comp);
+}
+
+auto push_heap(RandomAccessIterator first, RandomAccessIterator last)
+{
+	std::push_heap(first, last);
+}
+
+auto push_heap(RandomAccessIterator first, RandomAccessIterator last, Compare<decltype(*first)> comp)
+{
+	std::push_heap(first, last, comp);
+}
+
+auto pop_heap(RandomAccessIterator first, RandomAccessIterator last)
+{
+	std::pop_heap(first, last);
+}
+
+auto pop_heap(RandomAccessIterator first, RandomAccessIterator last, Compare<decltype(*first)> comp)
+{
+	std::pop_heap(first, last, comp);
+}
+
+auto sort_heap(RandomAccessIterator first, RandomAccessIterator last)
+{
+	std::sort_heap(first, last);
+}
+
+auto sort_heap(RandomAccessIterator first, RandomAccessIterator last, Compare<decltype(*first)> comp)
+{
+	std::sort_heap(first, last, comp);
 }
 
 // Minimum/maximum operations
 
-auto max()
+template<typename T> 
+constexpr auto max(const T &a, const T &b)
 {
-	return std::max(first, last, );
+	return std::max(a, b);
 }
 
-auto max_element()
+template<typename T> 
+constexpr auto max(const T &a, const T &b, Compare<T> comp)
 {
-	return std::max_element(first, last, );
+	return std::max(a, b, comp);
 }
 
-auto min()
+template<typename T> 
+constexpr auto max(std::initializer_list<T> ilist)
 {
-	return std::min(first, last, );
+	return std::max(ilist);
 }
 
-auto min_element()
+template<typename T> 
+constexpr auto max(std::initializer_list<T> ilist, Compare<T> comp)
 {
-	return std::min_element(first, last, );
+	return std::max(ilist, comp);
 }
 
-auto minmax()
+constexpr auto max_element(ForwardIterator first, ForwardIterator last)
 {
-	return std::minmax(first, last, );
+	return std::max_element(first, last);
 }
 
-auto minmax_element()
+constexpr auto max_element(ForwardIterator first, ForwardIterator last, Compare<decltype(*first)> comp)
 {
-	return std::minmax_element(first, last, );
+	return std::max_element(first, last, comp);
 }
 
-auto lexicographical_compare()
+template<typename T> 
+constexpr auto min(const T &a, const T &b)
 {
-	return std::lexicographical_compare(first, last, );
+	return std::min(a, b);
 }
 
-auto is_permutation()
+template<typename T> 
+constexpr auto min(const T &a, const T &b, Compare<T> comp)
 {
-	return std::is_permutation(first, last, );
+	return std::min(a, b, comp);
 }
 
-auto next_permutation()
+template<typename T> 
+constexpr auto min(std::initializer_list<T> ilist)
 {
-	return std::next_permutation(first, last, );
+	return std::min(ilist);
 }
 
-auto prev_permutation()
+template<typename T> 
+constexpr auto min(std::initializer_list<T> ilist, Compare<T> comp)
 {
-	return std::prev_permutation(first, last, );
+	return std::min(ilist, comp);
 }
-#endif
+
+constexpr auto min_element(ForwardIterator first, ForwardIterator last)
+{
+	return std::min_element(first, last);
+}
+
+constexpr auto min_element(ForwardIterator first, ForwardIterator last, Compare<decltype(*first)> comp)
+{
+	return std::min_element(first, last, comp);
+}
+
+template<typename T>
+constexpr auto minmax(const T &a, const T &b)
+{
+	return std::minmax(a, b);
+}
+
+template<typename T>
+constexpr auto minmax(const T &a, const T &b, Compare<T> comp)
+{
+	return std::minmax(a, b, comp);
+}
+
+template<typename T> 
+constexpr auto minmax(std::initializer_list<T> ilist)
+{
+	return std::minmax(ilist);
+}
+
+template<typename T> 
+constexpr auto minmax(std::initializer_list<T> ilist, Compare<T> comp)
+{
+	return std::minmax(ilist, comp);
+}
+
+constexpr auto minmax_element(ForwardIterator first, ForwardIterator last)
+{
+	return std::minmax_element(first, last);
+}
+
+constexpr auto minmax_element(ForwardIterator first, ForwardIterator last, Compare<decltype(*first)> comp)
+{
+	return std::minmax_element(first, last, comp);
+}
+
+template<InputIterator A, InputIterator B>
+auto lexicographical_compare(A first, A last, B first2, B last2)
+{
+	return std::lexicographical_compare(first, last, first2, last2);
+}
+
+template<InputIterator A, InputIterator B>
+auto lexicographical_compare(A first, A last, B first2, B last2, Callable<bool, decltype(*first), decltype(*first2)> comp)
+{
+	return std::lexicographical_compare(first, last, first2, last2, comp);
+}
+
+template<ForwardIterator A, ForwardIterator B>
+auto is_permutation(A first, A last, B first2)
+{
+	return std::is_permutation(first, last, first2);
+}
+
+template<ForwardIterator A, ForwardIterator B>
+auto is_permutation(A first, A last, B first2, Callable<bool, decltype(*first), decltype(*first2)> comp)
+{
+	return std::is_permutation(first, last, first2, comp);
+}
+
+template<ForwardIterator A, ForwardIterator B>
+auto is_permutation(A first, A last, B first2, B last2)
+{
+	return std::is_permutation(first, last, first2, last2);
+}
+
+template<ForwardIterator A, ForwardIterator B>
+auto is_permutation(A first, A last, B first2, B last2, Callable<bool, decltype(*first), decltype(*first2)> comp)
+{
+	return std::is_permutation(first, last, first2, last2, comp);
+}
+
+auto next_permutation(BidirectionalIterator first, BidirectionalIterator last)
+{
+	return std::next_permutation(first, last);
+}
+
+auto next_permutation(BidirectionalIterator first, BidirectionalIterator last, Compare<decltype(*first)> comp)
+{
+	return std::next_permutation(first, last, comp);
+}
+
+auto prev_permutation(BidirectionalIterator first, BidirectionalIterator last)
+{
+	return std::prev_permutation(first, last);
+}
+
+auto prev_permutation(BidirectionalIterator first, BidirectionalIterator last, Compare<decltype(*first)> comp)
+{
+	return std::prev_permutation(first, last, comp);
+}
 
 }
