@@ -211,11 +211,12 @@ What is mostly working
 * Chrono
 * Random
 * Thread
+* The algorithm header
 
 -------------------
 What is not working
 -------------------
-* The algorithm header is in the works, numerics has not been started yet
+* The numerics header has not been started yet
 * Container Concepts are lacking, to say the least
 * TimedLockable and SharedTimedMutex are underconstrained (possibly a gcc bug?)
 * Some Random Concepts are underconstrined due to a gcc bug (a workaround is possible, but not implemented yet)
