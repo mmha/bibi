@@ -14,7 +14,7 @@ concept bool Iterator =
 	Swappable<It> &&
 	requires(It r)
 	{
-		{*r} -> typename std::iterator_traits<It>::reference;
+		{*r};
 		{++r} -> It &;
 	};
 	
