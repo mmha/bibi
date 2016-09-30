@@ -13,7 +13,7 @@ Where can I find the C++ Standard Concepts?
 Most of them can be found on `cppreference <http://en.cppreference.com/w/cpp/concept>`_. Those missing can still be found in the C++ working draft, which is avaliable for free.
 
 -------------------------------------------
-How do I include this libray in my Project?
+How do I include this library in my Project?
 -------------------------------------------
 
 Don't forget to enable the C++17 and Concepts TS support in your compiler (:code:`-std=c++1z -fconcepts` in the case of gcc).

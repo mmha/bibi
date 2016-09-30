@@ -25,6 +25,5 @@ namespace bibi
 			{a.allocate(n)} -> typename A::pointer;
 			{a.deallocate(ptr, n)};
 			{a1 != a2} -> bool;
-
 		};
 }

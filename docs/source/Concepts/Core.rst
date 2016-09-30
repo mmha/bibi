@@ -137,7 +137,7 @@ Predicate
 .. graphviz::
 
      digraph g {
-		"Callable T, bool, U" -> Predicate;
+		"Callable<T, bool, U>" -> Predicate;
      }
 
 ---------------
@@ -147,7 +147,7 @@ BinaryPredicate
 .. graphviz::
 
      digraph g {
-		"Callable T, bool, U, U" -> BinaryPredicate;
+		"Callable<T, bool, U, U>" -> BinaryPredicate;
      }
 
 -------
@@ -157,5 +157,5 @@ Compare
 .. graphviz::
 
      digraph g {
-		"Callable T, bool, U, U" -> Compare;
+		"Callable<T, bool, U, U>" -> Compare;
      }
