@@ -236,6 +236,7 @@ Documentation
 	:maxdepth: 2
 
 	getting_started
+	Algorithm
 	Concepts/Allocator
 	Concepts/Chrono
 	Concepts/Container

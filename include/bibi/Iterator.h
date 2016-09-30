@@ -26,8 +26,8 @@ concept bool InputIterator =
 	{
 		{i != j} -> bool;
 		{*i} -> typename std::iterator_traits<It>::reference;
-		//{i->m};
 		{*i++} -> typename std::iterator_traits<It>::value_type;
+		//{i->m};
 	};
 
 template<typename It>
@@ -45,8 +45,8 @@ template<typename It>
 concept bool ForwardIterator =
 	InputIterator<It> &&
 	DefaultConstructible<It> &&
-	(OutputIterator<It> && !Const<typename std::iterator_traits<It>::value_type> ||
-	!OutputIterator<It> &&  Const<typename std::iterator_traits<It>::value_type>) &&
+	(OutputIterator<It> && !Const<typename std::iterator_traits<It>::reference> ||
+	!OutputIterator<It> &&  Const<typename std::iterator_traits<It>::reference>) &&
 	requires(It i)
 	{
 		{i++} -> It;
@@ -84,7 +84,7 @@ concept bool RandomAccessIterator =
 	};
 
 template<typename T>
-concept bool Mutable = ForwardIterator<T> && OutputIterator<T>;
+concept bool MutableIterator = InputIterator<T> && OutputIterator<T>;
 
 template<typename T>
 concept bool ValueSwappable = 

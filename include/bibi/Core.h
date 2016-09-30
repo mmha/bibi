@@ -7,7 +7,10 @@ namespace bibi
 
 template<typename T>
 concept bool EqualityComparable =
-	requires(const T a, const T b) { {a == b} -> bool; };
+	requires(const T a, const T b)
+	{
+		{a == b} -> bool;
+	};
 
 template<typename T>
 concept bool LessThanComparable =
