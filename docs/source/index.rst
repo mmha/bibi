@@ -212,6 +212,7 @@ What is mostly working
 * Random
 * Thread
 * The algorithm header
+* A very early Boost.GIL implementation
 
 -------------------
 What is not working

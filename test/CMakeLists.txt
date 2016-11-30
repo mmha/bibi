@@ -5,6 +5,7 @@ function(bibi_testcase testname expectation file)
 	try_compile(result
 		"${CMAKE_CURRENT_BINARY_DIR}/${testname}_expect_${expectation}"
 		"${CMAKE_CURRENT_SOURCE_DIR}/${file}"
+		LINK_LIBRARIES ${ARGN}
 		CMAKE_FLAGS -DINCLUDE_DIRECTORIES=${bibi_include_dir} -DCOMPILE_DEFINITIONS=${bibi_compile_options}
 		OUTPUT_VARIABLE output
 	)
@@ -19,3 +20,6 @@ bibi_testcase(chrono_success TRUE Chrono/Success.cpp)
 bibi_testcase(container_success TRUE Container/Success.cpp)
 bibi_testcase(random_success TRUE Random/Success.cpp)
 bibi_testcase(thread_success TRUE Thread/Success.cpp)
+bibi_testcase(boost_gil_success TRUE Boost.Gil/Success.cpp)
+bibi_testcase(boost_gil_success TRUE Boost.Gil/x_gradient_success.cpp jpeg)
+bibi_testcase(boost_gil_success TRUE Boost.Gil/histogram_success.cpp jpeg)
